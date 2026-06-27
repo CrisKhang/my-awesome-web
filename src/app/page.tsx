@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const PHONE = "0901 234 567";
-const PHONE_HREF = "tel:+84901234567";
+const PHONE = "0337 429 181";
+const PHONE_RAW = "0337429181";
+const PHONE_HREF = `tel:+84${PHONE_RAW.slice(1)}`;
+const ZALO_HREF = `https://zalo.me/${PHONE_RAW}`;
 
 const services = [
   {
@@ -400,7 +402,7 @@ export default function Home() {
                 {PHONE}
               </a>
               <a
-                href="https://zalo.me/0901234567"
+                href={ZALO_HREF}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-sm border border-zinc-600 px-8 py-4 text-base font-semibold text-zinc-200 transition-all hover:border-[#0068ff] hover:text-[#0068ff]"
