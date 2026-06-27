@@ -1,10 +1,62 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const PHONE = "0337 429 181";
-const PHONE_RAW = "0337429181";
-const PHONE_HREF = `tel:+84${PHONE_RAW.slice(1)}`;
-const ZALO_HREF = `https://zalo.me/${PHONE_RAW}`;
+const SITE = {
+  name: "Cris Khang",
+  tagline: "Xưởng sắt · Nhôm kính",
+  phone: "0337 429 181",
+  phoneRaw: "0337429181",
+  facebook: "https://www.facebook.com/cris.khang.2907/",
+  address: "TP. Hồ Chí Minh",
+  hours: "7:30 – 18:00 (T2–CN)",
+} as const;
+
+const PHONE = SITE.phone;
+const PHONE_HREF = `tel:+84${SITE.phoneRaw.slice(1)}`;
+const ZALO_HREF = `https://zalo.me/${SITE.phoneRaw}`;
+
+const popularProducts = [
+  {
+    title: "Cửa cổng sắt",
+    image:
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80",
+  },
+  {
+    title: "Cửa sắt nghệ thuật CNC",
+    image:
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80",
+  },
+  {
+    title: "Lan can cầu thang",
+    image:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80",
+  },
+  {
+    title: "Hàng rào sắt",
+    image:
+      "https://images.unsplash.com/photo-1605276374101-dee2ffb0f962?w=600&q=80",
+  },
+  {
+    title: "Cửa nhôm kính",
+    image:
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80",
+  },
+  {
+    title: "Cửa kính cường lực",
+    image:
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&q=80",
+  },
+  {
+    title: "Cổng trượt tự động",
+    image:
+      "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=600&q=80",
+  },
+  {
+    title: "Khung sắt bảo vệ",
+    image:
+      "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&q=80",
+  },
+];
 
 const services = [
   {
@@ -30,6 +82,51 @@ const services = [
     image:
       "https://images.unsplash.com/photo-1605276374101-dee2ffb0f962?w=800&q=80",
     features: ["Biệt thự", "Nhà phố", "Khu công nghiệp"],
+  },
+];
+
+const projects = [
+  {
+    title: "Cửa cổng sắt 2 cánh mặt tiền biệt thự",
+    category: "Công trình Nhà phố",
+    date: "25 Th5",
+    image:
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=700&q=80",
+  },
+  {
+    title: "Lan can cầu thang kính cường lực tay vịn inox",
+    category: "Công trình Biệt thự",
+    date: "02 Th5",
+    image:
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=700&q=80",
+  },
+  {
+    title: "Cửa sắt & nhôm kính hoàn thiện nhà anh Văn – Long An",
+    category: "Công trình Nhà phố",
+    date: "27 Th1",
+    image:
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=700&q=80",
+  },
+  {
+    title: "Hàng rào sắt sơn tĩnh điện khu dân cư Q.12",
+    category: "Dự án",
+    date: "16 Th1",
+    image:
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=700&q=80",
+  },
+  {
+    title: "Cửa sắt hoa văn CNC kết hợp khung bảo vệ",
+    category: "Công trình Nhà phố",
+    date: "05 Th11",
+    image:
+      "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=700&q=80",
+  },
+  {
+    title: "Cổng trượt tự động nhà xưởng Bình Dương",
+    category: "Dự án",
+    date: "30 Th9",
+    image:
+      "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=700&q=80",
   },
 ];
 
@@ -72,10 +169,60 @@ const gallery = [
   },
 ];
 
-function PhoneIcon() {
+const testimonials = [
+  {
+    name: "Anh Minh – Q. Tân Bình",
+    quote:
+      "Cris Khang thi công rất chuyên nghiệp và giá cũng rất tốt. Điểm mình ưng nhất là đội thợ sau khi thi công dọn dẹp sạch sẽ, cửa sắt bóng đẹp.",
+  },
+  {
+    name: "Chị Lan Anh – Q. Tân Phú",
+    quote:
+      "Thi công nhanh, dịch vụ tốt, các em thợ vui vẻ và có trách nhiệm. Mẫu mã đẹp, chắc chắn — chị rất hài lòng với bộ cửa cổng và lan can.",
+  },
+  {
+    name: "Chị Quỳnh – Quận 1",
+    quote:
+      "Gọi hotline cần gấp, chỉ 30 phút bạn đến sửa bản lề cửa sắt bị hư và vệ sinh sạch gỉ sét. Rất đáng tin cậy.",
+  },
+  {
+    name: "Chị Hoa – Q. Bình Tân",
+    quote:
+      "Ấn tượng với dịch vụ chuyên nghiệp và nhanh chóng. Chưa tới 2 ngày đã hoàn thiện cửa sắt 2 cánh rất chắc chắn và thẩm mỹ.",
+  },
+];
+
+const articles = [
+  {
+    title: "Cách chọn cửa sắt chống gỉ bền lâu cho nhà phố",
+    excerpt:
+      "Gợi ý vật liệu, lớp sơn tĩnh điện và thiết kế thoát nước giúp cửa sắt giữ được độ bền và thẩm mỹ lâu dài.",
+    date: "27 Th6",
+  },
+  {
+    title: "4 tiêu chí đánh giá độ bền cửa cổng sắt",
+    excerpt:
+      "Hiểu rõ khung thép, mối hàn, hệ ray trượt và motor để chọn cửa cổng phù hợp nhu cầu sử dụng thực tế.",
+    date: "22 Th6",
+  },
+  {
+    title: "Lan can sắt kết hợp kính: An toàn & thẩm mỹ",
+    excerpt:
+      "Giải pháp lan can cầu thang vừa đảm bảo an toàn gia đình vừa tăng ánh sáng và không gian mở cho ngôi nhà.",
+    date: "15 Th6",
+  },
+  {
+    title: "Hàng rào sắt sơn tĩnh điện: Lưu ý khi thi công",
+    excerpt:
+      "Quy trình xử lý bề mặt, sơn và bảo trì giúp hàng rào chống ăn mòn hiệu quả trong khí hậu nhiệt đới.",
+    date: "08 Th6",
+  },
+];
+
+function PhoneIcon({ className = "h-5 w-5 shrink-0" }: { className?: string }) {
   return (
     <svg
-      className="h-5 w-5 shrink-0"
+      className={className}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -87,6 +234,14 @@ function PhoneIcon() {
         strokeLinejoin="round"
         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
       />
+    </svg>
+  );
+}
+
+function FacebookIcon({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden>
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
     </svg>
   );
 }
@@ -122,24 +277,36 @@ export default function Home() {
             </div>
             <div>
               <p className="text-sm font-bold uppercase tracking-widest text-white">
-                Thép Việt
+                {SITE.name}
               </p>
-              <p className="text-xs text-zinc-500">Xưởng cơ khí · Cửa sắt</p>
+              <p className="text-xs text-zinc-500">{SITE.tagline}</p>
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-6 lg:flex">
             <a
-              href="#dich-vu"
+              href="#san-pham"
               className="text-sm font-medium text-zinc-400 transition-colors hover:text-[#f97316]"
             >
-              Dịch vụ
+              Sản phẩm
+            </a>
+            <a
+              href="#cong-trinh"
+              className="text-sm font-medium text-zinc-400 transition-colors hover:text-[#f97316]"
+            >
+              Công trình
             </a>
             <a
               href="#mau-dep"
               className="text-sm font-medium text-zinc-400 transition-colors hover:text-[#f97316]"
             >
               Mẫu đẹp
+            </a>
+            <a
+              href="#danh-gia"
+              className="text-sm font-medium text-zinc-400 transition-colors hover:text-[#f97316]"
+            >
+              Đánh giá
             </a>
             <a
               href="#lien-he"
@@ -149,18 +316,29 @@ export default function Home() {
             </a>
           </nav>
 
-          <a
-            href={PHONE_HREF}
-            className="flex items-center gap-2 rounded-sm bg-[#f97316] px-4 py-2.5 text-sm font-bold text-[#0d0d0d] transition-all hover:bg-[#fb923c] hover:shadow-lg hover:shadow-orange-500/30"
-          >
-            <PhoneIcon />
-            <span className="hidden sm:inline">{PHONE}</span>
-            <span className="sm:hidden">Gọi ngay</span>
-          </a>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <a
+              href={SITE.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook Cris Khang"
+              className="hidden rounded-sm border border-zinc-700 p-2.5 text-zinc-400 transition-colors hover:border-[#f97316]/50 hover:text-[#f97316] sm:flex"
+            >
+              <FacebookIcon />
+            </a>
+            <a
+              href={PHONE_HREF}
+              className="flex items-center gap-2 rounded-sm bg-[#f97316] px-4 py-2.5 text-sm font-bold text-[#0d0d0d] transition-all hover:bg-[#fb923c] hover:shadow-lg hover:shadow-orange-500/30"
+            >
+              <PhoneIcon />
+              <span className="hidden sm:inline">{PHONE}</span>
+              <span className="sm:hidden">Gọi ngay</span>
+            </a>
+          </div>
         </div>
       </header>
 
-      {/* Hero */}
+      {/* Hero — giữ nguyên */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
@@ -255,7 +433,52 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#f97316] to-transparent" />
       </section>
 
-      {/* Services */}
+      {/* Sản phẩm ưa chuộng */}
+      <section id="san-pham" className="bg-[#1a1a1a] py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-sm font-bold uppercase tracking-widest text-[#f97316]">
+              Danh mục
+            </p>
+            <h2 className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">
+              Sản phẩm ưa chuộng
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-zinc-400">
+              Click vào từng loại sản phẩm để xem báo giá và tư vấn miễn phí.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {popularProducts.map((product) => (
+              <a
+                key={product.title}
+                href="#lien-he"
+                className="group overflow-hidden rounded-sm border border-zinc-800 bg-[#262626] transition-all hover:border-[#f97316]/50 hover:shadow-lg hover:shadow-orange-500/10"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={product.image}
+                    alt={product.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-white group-hover:text-[#f97316]">
+                    {product.title}
+                  </h3>
+                  <p className="mt-1 text-sm font-medium text-[#f97316]">
+                    Giá: Liên hệ
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Dịch vụ chi tiết */}
       <section id="dich-vu" className="bg-[#262626] py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -263,12 +486,12 @@ export default function Home() {
               Dịch vụ của chúng tôi
             </p>
             <h2 className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">
-              Danh mục sản phẩm cơ khí
+              Gia công trọn gói tại xưởng
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-zinc-400">
               Từ ý tưởng đến thi công hoàn thiện — mọi sản phẩm đều được gia
-              công tại xưởng, kiểm tra chất lượng nghiêm ngặt trước khi bàn
-              giao.
+              công tại xưởng {SITE.name}, kiểm tra chất lượng nghiêm ngặt trước
+              khi bàn giao.
             </p>
           </div>
 
@@ -314,6 +537,92 @@ export default function Home() {
                 <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#f97316] transition-all duration-300 group-hover:w-full" />
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Công trình tiêu biểu */}
+      <section id="cong-trinh" className="bg-[#1a1a1a] py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-sm font-bold uppercase tracking-widest text-[#f97316]">
+              Xưởng {SITE.name}
+            </p>
+            <h2 className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">
+              Công trình tiêu biểu
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project) => (
+              <article
+                key={project.title}
+                className="group overflow-hidden rounded-sm border border-zinc-800 bg-[#262626] transition-all hover:border-[#f97316]/40"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
+                <div className="p-5">
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-500">
+                    <span className="rounded-sm bg-zinc-800 px-2 py-0.5 text-[#f97316]">
+                      {project.category}
+                    </span>
+                    <span>{project.date}</span>
+                  </div>
+                  <h3 className="mt-3 text-base font-semibold leading-snug text-white group-hover:text-[#f97316]">
+                    {project.title}
+                  </h3>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tư vấn miễn phí */}
+      <section className="border-y border-zinc-800 bg-[#262626] py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-2xl font-extrabold text-white sm:text-3xl">
+              Tư vấn miễn phí
+            </h2>
+            <p className="mt-4 leading-relaxed text-zinc-400">
+              {SITE.name} được thành lập với sứ mệnh đơn giản hóa quy trình thi
+              công cửa sắt, nhôm kính — mang đến cho quý khách chuẩn dịch vụ
+              với chi phí, thời gian và chất lượng tối ưu nhất.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <a
+                href={SITE.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-sm border border-zinc-600 px-5 py-2.5 text-sm font-semibold text-zinc-200 transition-all hover:border-[#f97316]/50 hover:text-[#f97316]"
+              >
+                <FacebookIcon className="h-4 w-4" />
+                Facebook
+              </a>
+              <a
+                href={PHONE_HREF}
+                className="inline-flex items-center gap-2 rounded-sm border border-zinc-600 px-5 py-2.5 text-sm font-semibold text-zinc-200 transition-all hover:border-[#f97316]/50 hover:text-[#f97316]"
+              >
+                <PhoneIcon className="h-4 w-4" />
+                Hotline: {PHONE}
+              </a>
+              <a
+                href={ZALO_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-sm border border-zinc-600 px-5 py-2.5 text-sm font-semibold text-zinc-200 transition-all hover:border-[#0068ff] hover:text-[#0068ff]"
+              >
+                Zalo: {PHONE}
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -371,6 +680,84 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Ý kiến khách hàng */}
+      <section id="danh-gia" className="bg-[#262626] py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-sm font-bold uppercase tracking-widest text-[#f97316]">
+              Phản hồi
+            </p>
+            <h2 className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">
+              Ý kiến khách hàng
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2">
+            {testimonials.map((item) => (
+              <blockquote
+                key={item.name}
+                className="rounded-sm border border-zinc-700/60 bg-[#1a1a1a] p-6"
+              >
+                <div className="mb-4 flex gap-1 text-[#f97316]" aria-hidden>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <svg
+                      key={i}
+                      className="h-4 w-4 fill-current"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-sm leading-relaxed text-zinc-400">
+                  &ldquo;{item.quote}&rdquo;
+                </p>
+                <footer className="mt-4 text-sm font-bold text-white">
+                  {item.name}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Thông tin hữu ích */}
+      <section id="tin-tuc" className="bg-[#1a1a1a] py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-sm font-bold uppercase tracking-widest text-[#f97316]">
+              Kiến thức
+            </p>
+            <h2 className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">
+              Thông tin hữu ích
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {articles.map((article) => (
+              <article
+                key={article.title}
+                className="group flex flex-col rounded-sm border border-zinc-800 bg-[#262626] p-5 transition-all hover:border-[#f97316]/40"
+              >
+                <time className="text-xs text-zinc-500">{article.date}</time>
+                <h3 className="mt-2 flex-1 text-base font-semibold leading-snug text-white group-hover:text-[#f97316]">
+                  {article.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-zinc-500">
+                  {article.excerpt}
+                </p>
+                <a
+                  href="#lien-he"
+                  className="mt-4 inline-flex text-sm font-semibold text-[#f97316] hover:text-[#fb923c]"
+                >
+                  Xem thêm →
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact CTA */}
       <section id="lien-he" className="relative overflow-hidden bg-[#262626] py-20">
         <div
@@ -384,16 +771,17 @@ export default function Home() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl rounded-sm border border-zinc-700 bg-[#1a1a1a] p-8 text-center sm:p-12">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#f97316]/15 text-[#f97316]">
-              <PhoneIcon />
+              <PhoneIcon className="h-8 w-8" />
             </div>
             <h2 className="mt-6 text-2xl font-extrabold text-white sm:text-3xl">
               Nhận báo giá miễn phí trong 24 giờ
             </h2>
             <p className="mt-4 text-zinc-400">
-              Gọi hotline hoặc nhắn tin qua Zalo — chúng tôi khảo sát tận nơi,
-              tư vấn mẫu và báo giá chi tiết, không phát sinh chi phí ẩn.
+              Gọi hotline, nhắn Zalo hoặc inbox Facebook — chúng tôi khảo sát
+              tận nơi, tư vấn mẫu và báo giá chi tiết, không phát sinh chi phí
+              ẩn.
             </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
               <a
                 href={PHONE_HREF}
                 className="inline-flex items-center gap-3 rounded-sm bg-[#f97316] px-8 py-4 text-lg font-bold text-[#0d0d0d] transition-all hover:bg-[#fb923c] hover:shadow-xl hover:shadow-orange-500/30"
@@ -409,10 +797,18 @@ export default function Home() {
               >
                 Chat Zalo
               </a>
+              <a
+                href={SITE.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-sm border border-zinc-600 px-8 py-4 text-base font-semibold text-zinc-200 transition-all hover:border-[#f97316]/50 hover:text-[#f97316]"
+              >
+                <FacebookIcon />
+                Facebook
+              </a>
             </div>
             <p className="mt-6 text-sm text-zinc-500">
-              Địa chỉ xưởng: 123 Đường Cơ Khí, Quận 12, TP. Hồ Chí Minh ·
-              Giờ làm việc: 7:30 – 18:00 (T2–CN)
+              {SITE.name} · {SITE.address} · Giờ làm việc: {SITE.hours}
             </p>
           </div>
         </div>
@@ -420,21 +816,42 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-zinc-800 bg-[#0d0d0d] py-10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-[#f97316] text-[#0d0d0d]">
-              <WrenchIcon />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
+            <div className="flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-[#f97316] text-[#0d0d0d]">
+                <WrenchIcon />
+              </div>
+              <p className="text-sm font-semibold text-zinc-400">
+                © 2026 {SITE.name} — Xưởng sắt, nhôm kính
+              </p>
             </div>
-            <p className="text-sm font-semibold text-zinc-400">
-              © 2026 Thép Việt — Xưởng cơ khí cửa sắt
-            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <a
+                href={SITE.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-zinc-500 transition-colors hover:text-[#f97316]"
+                aria-label="Facebook"
+              >
+                <FacebookIcon className="h-5 w-5" />
+              </a>
+              <a
+                href={PHONE_HREF}
+                className="text-sm font-bold text-[#f97316] transition-colors hover:text-[#fb923c]"
+              >
+                Hotline: {PHONE}
+              </a>
+              <a
+                href={ZALO_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-zinc-500 transition-colors hover:text-[#0068ff]"
+              >
+                Zalo
+              </a>
+            </div>
           </div>
-          <a
-            href={PHONE_HREF}
-            className="text-sm font-bold text-[#f97316] transition-colors hover:text-[#fb923c]"
-          >
-            Hotline: {PHONE}
-          </a>
         </div>
       </footer>
     </div>

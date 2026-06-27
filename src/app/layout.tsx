@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Thép Việt | Xưởng Cơ Khí Cửa Sắt, Cửa Cổng, Hàng Rào",
+  title: "Cris Khang | Cửa Sắt, Nhôm Kính, Cửa Cổng, Hàng Rào",
   description:
-    "Xưởng cơ khí chuyên gia công cửa sắt, cửa cổng, lan can, hàng rào. Thiết kế – gia công – lắp đặt trọn gói. Báo giá miễn phí.",
+    "Cris Khang — xưởng sắt, nhôm kính chuyên cửa sắt, cửa cổng, lan can, hàng rào. Thiết kế – gia công – lắp đặt trọn gói. Hotline 0337 429 181.",
 };
 
 export default function RootLayout({
