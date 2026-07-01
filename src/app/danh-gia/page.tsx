@@ -3,6 +3,9 @@ import { ReviewForm } from "@/app/components/ReviewForm";
 import { SiteFooter, SiteHeader } from "@/lib/components/SiteLayout";
 import { SITE } from "@/lib/site";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata = {
   title: `Gửi đánh giá | ${SITE.shortName}`,
   description: `Chia sẻ cảm nhận về ${SITE.shortName} — panel, thi công lắp ghép và chất lượng phục vụ.`,

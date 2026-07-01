@@ -1,12 +1,20 @@
 import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { prisma } from "@/lib/db";
+import { NO_STORE_HEADERS, revalidateReviewPages } from "@/lib/revalidate-reviews";
+import { deleteReview, updateReview } from "@/lib/reviews-store";
 import { NextResponse } from "next/server";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 type Props = { params: Promise<{ id: string }> };
 
+function json(data: unknown, status = 200) {
+  return NextResponse.json(data, { status, headers: NO_STORE_HEADERS });
+}
+
 export async function PATCH(request: Request, { params }: Props) {
   if (!(await isAdminAuthenticated())) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return json({ error: "Unauthorized" }, 401);
   }
 
   try {
@@ -15,37 +23,39 @@ export async function PATCH(request: Request, { params }: Props) {
     const status = body.status as string;
 
     if (!["approved", "rejected", "pending"].includes(status)) {
-      return NextResponse.json({ error: "Trạng thái không hợp lệ." }, { status: 400 });
+      return json({ error: "Trạng thái không hợp lệ." }, 400);
     }
 
-    const review = await prisma.review.update({
-      where: { id },
-      data: {
-        status,
-        role: typeof body.role === "string" ? body.role.trim() || null : undefined,
-        project: typeof body.project === "string" ? body.project.trim() || null : undefined,
-        image: typeof body.image === "string" ? body.image.trim() || null : undefined,
-      },
+    const review = await updateReview(id, {
+      status,
+      role: typeof body.role === "string" ? body.role.trim() || null : undefined,
+      project: typeof body.project === "string" ? body.project.trim() || null : undefined,
+      image: typeof body.image === "string" ? body.image.trim() || null : undefined,
     });
 
-    return NextResponse.json(review);
+    revalidateReviewPages();
+
+    return json(review);
   } catch (err) {
     console.error("PATCH /api/reviews/[id]:", err);
-    return NextResponse.json({ error: "Cập nhật thất bại." }, { status: 500 });
+    return json({ error: "Cập nhật thất bại." }, 500);
   }
 }
 
 export async function DELETE(_request: Request, { params }: Props) {
   if (!(await isAdminAuthenticated())) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return json({ error: "Unauthorized" }, 401);
   }
 
   try {
     const { id } = await params;
-    await prisma.review.delete({ where: { id } });
-    return NextResponse.json({ ok: true });
+    await deleteReview(id);
+
+    revalidateReviewPages();
+
+    return json({ ok: true });
   } catch (err) {
     console.error("DELETE /api/reviews/[id]:", err);
-    return NextResponse.json({ error: "Xóa thất bại." }, { status: 500 });
+    return json({ error: "Xóa thất bại." }, 500);
   }
 }

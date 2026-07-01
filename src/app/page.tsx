@@ -16,6 +16,9 @@ import {
 } from "@/lib/components/SiteLayout";
 import { PHONE_HREF, SITE } from "@/lib/site";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const news = designArticles.slice(0, 4);
 
 const stats = [

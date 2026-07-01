@@ -84,15 +84,28 @@ export function TestimonialsSlider() {
   const [paused, setPaused] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
+  const loadReviews = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/reviews?approved=true&t=${Date.now()}`, {
+        cache: "no-store",
+        headers: { "Cache-Control": "no-cache" },
+      });
+      if (!res.ok) return;
 
-    fetch("/api/reviews?approved=true")
-      .then((r) => r.json())
-      .then((data: { id: string; name: string; rating: number; content: string; role: string; project: string; image: string | null }[]) => {
-        if (cancelled || !Array.isArray(data) || data.length === 0) return;
+      const data = (await res.json()) as {
+        id: string;
+        name: string;
+        rating: number;
+        content: string;
+        role: string;
+        project: string;
+        image: string | null;
+      }[];
 
-        const fromDb: SlideItem[] = data.map((r) => ({
+      if (!Array.isArray(data) || data.length === 0) return;
+
+      setItems(
+        data.map((r) => ({
           id: r.id,
           name: r.name,
           rating: r.rating as SlideItem["rating"],
@@ -100,22 +113,23 @@ export function TestimonialsSlider() {
           role: r.role,
           project: r.project,
           image: r.image || DEFAULT_IMAGE,
-        }));
-
-        setItems(fromDb);
-        setActive(0);
-      })
-      .catch(() => {
-        /* giữ mẫu tĩnh nếu API lỗi */
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-
-    return () => {
-      cancelled = true;
-    };
+        })),
+      );
+      setActive(0);
+    } catch {
+      /* giữ mẫu tĩnh nếu API lỗi */
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    void loadReviews();
+
+    const onFocus = () => void loadReviews();
+    window.addEventListener("focus", onFocus);
+    return () => window.removeEventListener("focus", onFocus);
+  }, [loadReviews]);
 
   const count = items.length;
 

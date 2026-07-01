@@ -1,6 +1,14 @@
 import { isAdminAuthenticated } from "@/lib/admin-auth";
-import { prisma, toPublicReview } from "@/lib/db";
+import { NO_STORE_HEADERS, revalidateReviewPages } from "@/lib/revalidate-reviews";
+import { createReview, listReviews, toPublicReview } from "@/lib/reviews-store";
 import { NextResponse } from "next/server";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+function json(data: unknown, status = 200) {
+  return NextResponse.json(data, { status, headers: NO_STORE_HEADERS });
+}
 
 export async function GET(request: Request) {
   try {
@@ -8,28 +16,24 @@ export async function GET(request: Request) {
     const approvedOnly = searchParams.get("approved") === "true";
 
     if (!approvedOnly && !(await isAdminAuthenticated())) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return json({ error: "Unauthorized" }, 401);
     }
 
-    const reviews = await prisma.review.findMany({
-      where: approvedOnly ? { status: "approved" } : undefined,
-      orderBy: { createdAt: "desc" },
-    });
+    const reviews = await listReviews(approvedOnly);
 
     if (approvedOnly) {
-      return NextResponse.json(reviews.map(toPublicReview));
+      return json(reviews.map(toPublicReview));
     }
 
-    return NextResponse.json(
+    return json(
       reviews.map((r) => ({
         ...r,
         createdAt: r.createdAt.toISOString(),
-        updatedAt: r.updatedAt.toISOString(),
       })),
     );
   } catch (err) {
     console.error("GET /api/reviews:", err);
-    return NextResponse.json({ error: "Không tải được đánh giá." }, { status: 500 });
+    return json({ error: "Không tải được đánh giá." }, 500);
   }
 }
 
@@ -42,38 +46,29 @@ export async function POST(request: Request) {
     const rating = Number(body.rating);
 
     if (!name) {
-      return NextResponse.json({ error: "Vui lòng nhập họ tên." }, { status: 400 });
+      return json({ error: "Vui lòng nhập họ tên." }, 400);
     }
     if (!phone || phone.length < 9) {
-      return NextResponse.json({ error: "Vui lòng nhập số điện thoại hợp lệ." }, { status: 400 });
+      return json({ error: "Vui lòng nhập số điện thoại hợp lệ." }, 400);
     }
     if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
-      return NextResponse.json({ error: "Vui lòng chọn số sao từ 1 đến 5." }, { status: 400 });
+      return json({ error: "Vui lòng chọn số sao từ 1 đến 5." }, 400);
     }
     if (!content || content.length < 5) {
-      return NextResponse.json(
-        { error: "Nội dung đánh giá cần ít nhất 5 ký tự." },
-        { status: 400 },
-      );
+      return json({ error: "Nội dung đánh giá cần ít nhất 5 ký tự." }, 400);
     }
 
-    const review = await prisma.review.create({
-      data: {
-        name,
-        phone,
-        rating,
-        content,
-        status: "pending",
-      },
-    });
+    const review = await createReview({ name, phone, rating, content });
 
-    return NextResponse.json({
+    revalidateReviewPages();
+
+    return json({
       ok: true,
       message: "Cảm ơn bạn! Đánh giá đang được xem xét trước khi hiển thị.",
       id: review.id,
     });
   } catch (err) {
     console.error("POST /api/reviews:", err);
-    return NextResponse.json({ error: "Không gửi được đánh giá." }, { status: 500 });
+    return json({ error: "Không gửi được đánh giá." }, 500);
   }
 }
