@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cris Khang | Cửa Sắt, Nhôm Kính, Cửa Cổng, Hàng Rào",
+  title: "Nhà Lắp Ghép Bảo Thịnh Phát | Dựng xây ước mơ",
   description:
-    "Cris Khang — xưởng sắt, nhôm kính chuyên cửa sắt, cửa cổng, lan can, hàng rào. Thiết kế – gia công – lắp đặt trọn gói. Hotline 0337 429 181.",
+    "Bảo Thịnh Phát — nhà lắp ghép, nhà tiền chế, khung thép, cửa sắt tại TP.HCM. Hotline 0337 429 181. Tư vấn miễn phí.",
 };
 
 export default function RootLayout({
