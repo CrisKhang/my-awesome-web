@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ContactForm } from "./components/ContactForm";
 import { DesignLibraryTabs } from "./components/DesignLibraryTabs";
+import { TestimonialsSlider } from "./components/TestimonialsSlider";
 import {
   designArticles,
   designProjects,
@@ -12,7 +14,7 @@ import {
   SiteFooter,
   SiteHeader,
 } from "@/lib/components/SiteLayout";
-import { PHONE_HREF, SITE, ZALO_HREF } from "@/lib/site";
+import { PHONE_HREF, SITE } from "@/lib/site";
 
 const news = designArticles.slice(0, 4);
 
@@ -64,7 +66,7 @@ export default function Home() {
       <section className="relative overflow-hidden bg-gradient-to-br from-[#0099e0] via-[#0084c7] to-[#006699]">
         <div className="absolute inset-0 opacity-20">
           <Image
-            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920&q=80"
+            src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=900&q=80"
             alt=""
             fill
             className="object-cover"
@@ -235,6 +237,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials — đánh giá đã duyệt từ database */}
+      <section id="danh-gia" className="py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-sm font-bold uppercase tracking-widest text-[#0084c7]">
+              Uy tín &amp; chất lượng
+            </p>
+            <h2 className="mt-3 text-3xl font-extrabold text-slate-900 sm:text-4xl">
+              Khách hàng &amp; Đối tác nói về {SITE.shortName}
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-slate-600">
+              Những phản hồi thực tế từ chủ thầu và khách hàng sau khi bàn giao công trình.
+              {" "}
+              <Link href="/danh-gia" className="font-semibold text-[#0084c7] hover:underline">
+                Gửi đánh giá của bạn →
+              </Link>
+            </p>
+          </div>
+
+          <div className="relative mx-auto mt-12 max-w-3xl px-8 sm:px-12">
+            <TestimonialsSlider />
+          </div>
+        </div>
+      </section>
+
       {/* Contact */}
       <section id="lien-he" className="py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -250,53 +277,7 @@ export default function Home() {
             </div>
 
             <div className="grid gap-8 p-6 sm:p-10 lg:grid-cols-2">
-              <form
-                action={ZALO_HREF}
-                className="space-y-4"
-              >
-                <div>
-                  <label htmlFor="name" className="mb-1 block text-sm font-medium text-slate-700">
-                    Họ tên
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Họ tên của bạn"
-                    className="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-[#0084c7] focus:ring-1 focus:ring-[#0084c7]"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="mb-1 block text-sm font-medium text-slate-700">
-                    Số điện thoại
-                  </label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="Số điện thoại của bạn"
-                    className="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-[#0084c7] focus:ring-1 focus:ring-[#0084c7]"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" className="mb-1 block text-sm font-medium text-slate-700">
-                    Nội dung
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    placeholder="Mô tả nhu cầu của bạn..."
-                    className="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-[#0084c7] focus:ring-1 focus:ring-[#0084c7]"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full rounded-lg bg-[#0084c7] py-3 text-sm font-bold text-white transition hover:bg-[#006699]"
-                >
-                  Gửi liên hệ qua Zalo
-                </button>
-              </form>
+              <ContactForm />
 
               <div className="min-w-0 space-y-6">
                 <div className="flex items-center gap-4">
